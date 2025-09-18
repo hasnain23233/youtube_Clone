@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen }) {
             initial={{ x: -250 }}
             animate={{ x: isOpen ? 0 : -250 }}
             transition={{ type: "spring", stiffness: 70 }}
-            className="bg-gray-900 text-white w-60 h-screen fixed top-0 left-0 p-4 space-y-6 shadow-lg z-40"
+            className="bg-gray-900 text-white w-60 h-screen fixed top-0 left-0 py-16 p-4 space-y-6 shadow-lg z-40"
         >
             {/* Main */}
             <div>
@@ -60,7 +60,6 @@ export default function Sidebar({ isOpen }) {
             <div>
                 <h3 className="text-gray-400 text-sm mb-2">Explore</h3>
                 <SidebarItem icon={Music} label="Music" to="/music" />
-                <SidebarItem icon={Gamepad2} label="Gaming" to="/gaming" />
             </div>
         </motion.aside>
     );
