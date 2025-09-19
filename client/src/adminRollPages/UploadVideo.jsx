@@ -23,11 +23,11 @@ export default function UploadVideo() {
     };
 
     return (
-        <div className="p-6 ml-60">
+        <div className="pt-3">
             <h2 className="text-white text-xl font-bold mb-4">Upload Video</h2>
             <form
                 onSubmit={handleSubmit}
-                className="space-y-4 bg-gray-800 p-6 rounded-lg"
+                className="space-y-4 bg-gray-800 pt-6 rounded-lg"
             >
                 <input
                     type="text"
