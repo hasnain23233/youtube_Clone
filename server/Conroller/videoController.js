@@ -1,34 +1,58 @@
+const fs = require("fs");
+const path = require("path");
 const Video = require("../Model/videoModel");
 
 // Upload video
 exports.uploadVideo = async (req, res) => {
     try {
-        const { title, description } = req.body;
+        console.log("Upload request received ✅");
 
-        const video = await Video.create({
-            title,
-            description,
+        if (!req.file) {
+            console.log("⚠️ No file received!");
+            return res.status(400).json({ message: "No video file uploaded!" });
+        }
+
+        const { title, description, userId } = req.body;
+
+        console.log("Form Data:", { title, description, userId });
+        console.log("Uploaded File:", req.file);
+
+        const newVideo = new Video({
+            title: title || "Untitled",
+            description: description || "",
             videoUrl: `/uploads/videos/${req.file.filename}`,
-            user: req.user ? req.user._id : req.body.userId || "123", // default user
+            user: userId || null, // agar auth nahi hai to null save karega
         });
 
-        res.status(201).json(video);
+        const savedVideo = await newVideo.save();
+        console.log("✅ Video saved to MongoDB:", savedVideo);
+
+        res.status(201).json(savedVideo);
     } catch (error) {
+        console.error("❌ Upload Error:", error);
         res.status(500).json({ message: error.message });
     }
 };
 
 // Get all videos
 exports.getVideos = async (req, res) => {
-    const videos = await Video.find().sort({ createdAt: -1 });
-    res.json(videos);
+    try {
+        const videos = await Video.find().sort({ createdAt: -1 });
+        res.json(videos);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 // Get video by ID
 exports.getVideoById = async (req, res) => {
-    const video = await Video.findById(req.params.id);
-    if (!video) return res.status(404).json({ message: "Video not found" });
-    res.json(video);
+    try {
+        const video = await Video.findById(req.params.id);
+        if (!video) return res.status(404).json({ message: "Video not found" });
+        res.json(video);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 // Get all videos of one user
@@ -46,7 +70,15 @@ exports.getUserVideos = async (req, res) => {
 exports.updateVideo = async (req, res) => {
     try {
         const { id } = req.params;
-        const updated = await Video.findByIdAndUpdate(id, req.body, { new: true });
+        const { title, description } = req.body;
+
+        const updated = await Video.findByIdAndUpdate(
+            id,
+            { title, description },
+            { new: true }
+        );
+
+        if (!updated) return res.status(404).json({ message: "Video not found" });
         res.json(updated);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -57,9 +89,19 @@ exports.updateVideo = async (req, res) => {
 exports.deleteVideo = async (req, res) => {
     try {
         const { id } = req.params;
-        await Video.findByIdAndDelete(id);
+        const video = await Video.findById(id);
+        if (!video) return res.status(404).json({ message: "Video not found" });
+
+        // Delete file from disk
+        const filePath = path.join(__dirname, "..", video.videoUrl);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        await video.deleteOne();
         res.json({ message: "Video deleted successfully" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
+
