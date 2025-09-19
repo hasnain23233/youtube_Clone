@@ -6,6 +6,7 @@ export default function UploadVideo() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [file, setFile] = useState(null);
+    const userId = "123"; // 🔹 future: auth se aayega
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,6 +16,7 @@ export default function UploadVideo() {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("video", file);
+        formData.append("userId", userId); // ✅ ye line add karo
 
         uploadVideo(formData);
         setTitle("");

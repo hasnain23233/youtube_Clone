@@ -13,7 +13,7 @@ const mongoDBLink = process.env.MONGO_URL;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads")); // ⚡ Ye line sahi hai
 
 // Routes
 app.use("/api/videos", videoRoutes);

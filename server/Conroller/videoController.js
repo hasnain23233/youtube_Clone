@@ -21,8 +21,9 @@ exports.uploadVideo = async (req, res) => {
             title: title || "Untitled",
             description: description || "",
             videoUrl: `/uploads/videos/${req.file.filename}`,
-            user: userId || null, // agar auth nahi hai to null save karega
+            user: userId || null,
         });
+
 
         const savedVideo = await newVideo.save();
         console.log("✅ Video saved to MongoDB:", savedVideo);
@@ -38,8 +39,10 @@ exports.uploadVideo = async (req, res) => {
 exports.getVideos = async (req, res) => {
     try {
         const videos = await Video.find().sort({ createdAt: -1 });
+        console.log("✅ Videos fetched:", videos.length);
         res.json(videos);
     } catch (err) {
+        console.error("❌ Fetch Error:", err);
         res.status(500).json({ message: err.message });
     }
 };
@@ -92,10 +95,11 @@ exports.deleteVideo = async (req, res) => {
         const video = await Video.findById(id);
         if (!video) return res.status(404).json({ message: "Video not found" });
 
-        // Delete file from disk
-        const filePath = path.join(__dirname, "..", video.videoUrl);
+        // ⚡ Proper file path fix
+        const filePath = path.join(__dirname, "..", "uploads", "videos", path.basename(video.videoUrl));
         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
+            console.log("🗑️ File deleted:", filePath);
         }
 
         await video.deleteOne();
@@ -104,4 +108,3 @@ exports.deleteVideo = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
-

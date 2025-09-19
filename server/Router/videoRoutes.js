@@ -16,11 +16,11 @@ router.post("/upload", upload.single("video"), uploadVideo);
 // Get all videos
 router.get("/", getVideos);
 
+// ⚡ Pehle user route rakha
+router.get("/user/:userId", getUserVideos);
+
 // Get single video
 router.get("/:id", getVideoById);
-
-// Get all videos of a user
-router.get("/user/:userId", getUserVideos);
 
 // Update video
 router.put("/:id", updateVideo);
