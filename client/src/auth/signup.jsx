@@ -34,7 +34,7 @@ export default function Signup() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-950">
+        <div className="flex justify-center items-center min-h-screen w-full bg-gray-800 ">
             <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-bold text-white mb-6 text-center">
                     Create Account
@@ -52,7 +52,7 @@ export default function Signup() {
                         placeholder="Username"
                         value={form.username}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
 
@@ -62,7 +62,7 @@ export default function Signup() {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
 
@@ -72,14 +72,14 @@ export default function Signup() {
                         placeholder="Password"
                         value={form.password}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                     />
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition"
+                        className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded transition"
                     >
                         {loading ? "Signing up..." : "Sign Up"}
                     </button>
@@ -87,7 +87,7 @@ export default function Signup() {
 
                 <p className="text-gray-400 text-center mt-4">
                     Already have an account?{" "}
-                    <a href="/login" className="text-blue-500 hover:underline">
+                    <a href="/login" className="text-white   hover:underline">
                         Login
                     </a>
                 </p>

@@ -8,10 +8,10 @@ const FullStackYoutubeFile = () => {
         <div>
             <Navbar />
             <div className=' mt-2 flex gap-10'>
-                <div className='border w-2/12'>
+                <div className=' w-2/12'>
                     <SideNavbar />
                 </div>
-                <div>
+                <div className='w-10/12 '>
                     <PageRouting />
                 </div>
             </div>

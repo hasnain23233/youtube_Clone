@@ -40,6 +40,9 @@ export default function Navbar() {
                 </Link>
 
                 {/* User Avatar / Login */}
+                <Link to="/signup" className="hover:text-red-400 flex items-center gap-1">
+                    <User size={20} /> <span className="hidden sm:block">Signup</span>
+                </Link>
                 <Link to="/login" className="hover:text-red-400 flex items-center gap-1">
                     <User size={20} /> <span className="hidden sm:block">Login</span>
                 </Link>
