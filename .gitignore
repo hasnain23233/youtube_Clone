@@ -44,5 +44,6 @@ coverage/
 .next/
 out/
 
-uploads/
-    
+# Ignore uploaded videos
+server/uploads/videos/*
+
