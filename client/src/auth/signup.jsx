@@ -1,15 +1,13 @@
 import { useState } from "react";
-import API from "../services/api"; // 👈 tumhara axios instance
+import useAuthStore from "../store/useAuthentication";
 
 export default function Signup() {
+    const { signup, user, loading, error, success } = useAuthStore();
     const [form, setForm] = useState({
         username: "",
         email: "",
         password: "",
     });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,20 +15,7 @@ export default function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-        setSuccess(false);
-
-        try {
-            const res = await API.post("/auth/signup", form);
-            console.log("✅ Signup Success:", res.data);
-            setSuccess(true);
-        } catch (err) {
-            console.error("❌ Signup Error:", err.response?.data || err.message);
-            setError(err.response?.data?.message || "Signup failed");
-        } finally {
-            setLoading(false);
-        }
+        await signup(form); // 👈 call zustand action
     };
 
     return (
@@ -42,7 +27,9 @@ export default function Signup() {
 
                 {error && <p className="text-red-500 text-center">{error}</p>}
                 {success && (
-                    <p className="text-green-500 text-center">Signup successful 🎉</p>
+                    <p className="text-green-500 text-center">
+                        Signup successful 🎉 Welcome {user?.username}
+                    </p>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -87,7 +74,7 @@ export default function Signup() {
 
                 <p className="text-gray-400 text-center mt-4">
                     Already have an account?{" "}
-                    <a href="/login" className="text-white   hover:underline">
+                    <a href="/login" className="text-white hover:underline">
                         Login
                     </a>
                 </p>
