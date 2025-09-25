@@ -7,6 +7,7 @@ import {
 import UploadVideo from './adminRollPages/UploadVideo';
 import MyVideos from './adminRollPages/MyVideos';
 import Signup from './auth/signup';
+import Login from './auth/login';
 
 const pageRouting = () => {
     return (
@@ -19,6 +20,9 @@ const pageRouting = () => {
 
                 {/* authentication routes */}
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+
+                <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>
         </div>
     )

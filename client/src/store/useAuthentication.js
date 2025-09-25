@@ -25,6 +25,25 @@ const useAuthStore = create((set) => ({
         }
     },
 
+    // --- Login Action ---
+    login: async (form) => {
+        set({ loading: true, error: null, success: false });
+        try {
+            const res = await API.post("/auth/login", form);
+            set({
+                user: res.data.user,
+                success: true,
+            });
+        } catch (err) {
+            set({
+                error: err.response?.data?.message || "Login failed",
+            });
+        } finally {
+            set({ loading: false });
+        }
+    },
+
+
     // --- Logout Action ---
     logout: () => {
         set({ user: null, success: false });
