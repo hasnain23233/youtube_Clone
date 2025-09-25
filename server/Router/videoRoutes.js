@@ -8,7 +8,7 @@ const {
     getUserVideos,
     updateVideo,
     deleteVideo,
-} = require("../Conroller/videoController");
+} = require("../Controllers/videoController");
 
 // Upload
 router.post("/upload", upload.single("video"), uploadVideo);

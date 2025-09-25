@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const videoRoutes = require('./Router/videoRoutes');
+const AuthRouter = require('./Router/AuthRouter');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.use("/uploads", express.static("uploads")); // ⚡ Ye line sahi hai
 
 // Routes
 app.use("/api/videos", videoRoutes);
+app.use("/api/auth", AuthRouter); // ⚡ Auth routes
 
 // DB Connection
 mongoose
