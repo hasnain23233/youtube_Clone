@@ -1,6 +1,6 @@
 # YouTube Clone 🎬
 
-A fully functional **YouTube clone** built using **React.js, Next.js, Tailwind CSS**, and **Node.js** for the backend. This project demonstrates modern web development skills, including responsive design, API integration, and interactive UI components.
+A fully functional **YouTube clone** built using **React.js, Next.js, Tailwind CSS**, and **Node.js**  **Express.js** and  **MongoDB**  for the backend. This project demonstrates modern web development skills, including responsive design, API integration, and interactive UI components.
 
 ---
 
